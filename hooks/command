@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+REGISTRY=${BUILDKITE_PLUGIN_PACKAGE_PUBLISHING_REGISTRY:-'//registry.npmjs.org/'}
+TOKEN=${BUILDKITE_PLUGIN_PACKAGE_PUBLISHING_TOKEN:-''}
+# WORKDIR=${BUILDKITE_PLUGIN_PACKAGE_PUBLISHING_TOKEN:-''}
+
+if [[ -z "${TOKEN}" ]]; 
+then
+  echo ':package: :books: Failed! No Token set'
+  exit 1
+fi
+
+echo '--- Setting up access for :package: :books:'
+
+cat > .npmrc << EOF
+${REGISTRY}:_authToken=${TOKEN}
+EOF
+
+echo '--- Determining :package: type'
+
+PKG_CMD=npm
+if [[ -s 'yarn.lock' ]];
+then
+  PKG_CMD="yarn"
+fi
+
+docker \ 
+  --log-level "error" \
+  run  \
+  
+
+

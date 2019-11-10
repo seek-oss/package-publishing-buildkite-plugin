@@ -1,0 +1,16 @@
+name: Package Publisher
+description: Publishes packages 
+author: https://github.com/seek-jobs
+public: true
+requirements:
+  - docker
+configuration:
+  properties:
+    registry:
+      type: string
+    token:
+      type: string
+    workdir:
+      type: string
+
+
